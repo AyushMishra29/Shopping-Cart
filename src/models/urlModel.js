@@ -2,16 +2,16 @@
 const mongoose = require('mongoose');
 
 //Instantiate a mongoose schema
-const URLSchema = new mongoose.Schema({
-    urlCode: {
-        type: String
-    }, 
+const URLSchema = new mongoose.Schema({ 
     longUrl: {
         type: String
     }, 
     shortUrl: {
         type: String
-    } 
+    } ,
+    urlCode: {
+        type: String
+    }
 }, { timestamps: true });
 
 //creating a model from schema and export it 

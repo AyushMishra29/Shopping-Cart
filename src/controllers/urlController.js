@@ -4,7 +4,6 @@ const redis = require("redis");
 
 const { promisify } = require("util");
 
-
 //Importing the urlModel
 const URLModel = require("../models/urlModel")
 
@@ -21,11 +20,6 @@ redisClient.auth("AZQXHFyqf7wxNoDHSJQePMPbWjnfOSTj", function (err) {
 redisClient.on("connect", async function () {
   console.log("Connected to Redis..");
 });
-
-
-
-//1. connect to the server
-//2. use the commands :
 
 //Connection setup for redis
 
@@ -110,10 +104,11 @@ const redirection = async (req , res) => {
    
       let cahcedUrlData = await GET_ASYNC(`${urlCode}`)
       let data = JSON.parse(cahcedUrlData)
+
       if(cahcedUrlData) {
-          
-        res.status(303).redirect(data.longUrl)
+        res.status(302).redirect(data.longUrl)
       }
+
       else {
       const url = await URLModel.findOne({
           urlCode: urlCode
@@ -122,7 +117,7 @@ const redirection = async (req , res) => {
         return res.status(404).send({status: false , message: "No URL found" })
      }
      else {
-         return res.status(303).redirect(url.longUrl)
+         return res.status(302).redirect(url.longUrl)
       }
     }
     }
