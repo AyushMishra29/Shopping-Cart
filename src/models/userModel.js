@@ -1,68 +1,55 @@
-//Importing mongoose package
 const mongoose = require('mongoose');
 
-//Instantiate a mongoose schema
-const userSchema = new mongoose.Schema({ 
+const userSchema = new mongoose.Schema({
     fname: {
-        type: String, 
-        required: true
+        type: String,
+        required: 'First Name is required',
+        trim: true
     },
     lname: {
-        type: String, 
-        required: true
+        type: String,
+        required: 'Last Name is required',
+        trim: true
     },
     email: {
-        type: String, 
-        required: true,
-        unique: true
+        type: String,
+        unique: true,
+        trim: true,
+        required: 'Email is required',
+
     },
     profileImage: {
         type: String,
         required: true
-    }, // s3 link
+    },
     phone: {
-        type: String, 
-        required: true,
-        unique: true
-    }, 
+        type: String,
+        required: 'Phone is required',
+        unique: true,
+        trim: true,
+    },
+
     password: {
-        type: String, 
-        required: true,
-        minLen: 8,
-        maxLen: 15
-    }, // encrypted password
+        type: String,
+        required: 'Password is required',
+        trim: true,
+    },
+    
     address: {
-      shipping: {
-        street: {
-            type: String, 
-            required: true
+        shipping: {
+            street: { type: String, required:true, trim: true },
+            city: { type: String, required:true, trim: true },
+            pincode: { type: Number, required:true, trim: true }
         },
-        city: {
-            type: String, 
-            required: true
-        },
-        pincode: {
-            type: Number, 
-            rqeuired: true
+
+        billing: {
+            street: { type: String, required:true, trim: true },
+            city: { type: String, required:true, trim: true },
+            pincode: { type: Number, required:true, trim: true }
         }
-      },
-      billing: {
-        street: {
-            type: String, 
-            required: true
-        },
-        city: {
-            type: String, 
-            required: true
-        },
-        pincode: {
-            type: Number, 
-            rqeuired: true
-        }
+
     }
-  }
+
 }, { timestamps: true });
 
-//creating a model from schema and export it 
-module.exports = mongoose.model('user', userSchema) 
-
+module.exports = mongoose.model('ShoppingCartProject_user', userSchema);

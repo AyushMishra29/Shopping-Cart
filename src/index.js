@@ -1,30 +1,24 @@
-//Importing express , body-Parser , mongoose and multer package
 const express = require('express');
-const bodyParser = require('body-parser');
-const multer =  require("multer")
-const { default: mongoose } = require('mongoose');
+var bodyParser = require('body-parser');
+const route = require('./route/route.js');
 const app = express();
+const multer = require('multer')
 
-//Importing route file
-const route = require('./routes/route.js');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(multer().any());
+app.use(multer().any())
 
-//Connecting to Database //
-mongoose.connect("mongodb+srv://CCAnkit:CCAnkit09@clusternew.gds9x.mongodb.net/Ayush-Database", {
-    useNewUrlParser: true
-})
-.then( () => console.log("MongoDb is connected"))
-.catch ( err => console.log(err) )
+const mongoose = require('mongoose')
 
-//parse incoming request body in JSON format
+mongoose.connect("mongodb+srv://Abhishek0186:7SIIHhKFk1Vsyl1o@thoriumbackend.izyvo.mongodb.net/groupXDatabase?retryWrites=true&w=majority", {useNewUrlParser: true, useUnifiedTopology: true})
+    .then(() => console.log('mongodb running on 27017'))
+    .catch(err => console.log(err))
+
 app.use('/', route);
 
-//Listen for incoming requests
-app.listen(process.env.PORT || 3000, function () {
-    console.log('Express app running on port ' + (process.env.PORT || 3000))
+app.listen(process.env.PORT || 3000, function() {
+	console.log('Express app running on port ' + (process.env.PORT || 3000))
 });
 
 
